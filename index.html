@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>Semih & Enise — İlk Anılar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="skyCanvas"></canvas>
+  <div class="film-grain"></div>
+
+  <section id="lock" class="screen active">
+    <div class="lock-stars"></div>
+    <div class="lock-card">
+      <div class="lock-heart">♥</div>
+      <div class="lock-eyebrow">SADECE İKİNİZ İÇİN</div>
+      <h1>Semih <span>&</span> Enise</h1>
+      <p>Bizim hikâyemize girmek için<br>küçük bir sır gerekiyor.</p>
+      <form id="lockForm">
+        <div class="passbox"><input id="pass" type="password" maxlength="8" inputmode="numeric" placeholder="Şifreni gir..."><button type="button" id="showPass">◉</button></div>
+        <div class="hint">✦ İpucu: Hikâyemizin başladığı tarih...</div>
+        <button class="enter-btn">Hikâyeye Gir <span>→</span></button>
+        <div id="wrong" class="wrong">Bu kapı doğru tarihle açılır…</div>
+      </form>
+      <div class="lock-note">⌁ Bu sayfa yalnızca senin için. ⌁</div>
+    </div>
+  </section>
+
+  <section id="cinema" class="screen sky-only">
+    <canvas id="meteorCanvas"></canvas>
+    <div class="cinema-romance">
+      <div class="cinema-small">BİR HİKÂYENİN EN GÜZEL YERİ</div>
+      <h2>İyi ki <span>sen</span>…</h2>
+      <p class="cinema-message">“Bazı insanlar hayatımıza tesadüfen girer,<br>ama kalbimizde sonsuza kadar kalır.”</p>
+      <div class="cinema-names">Semih <b>&amp;</b> Enise</div>
+      <div class="cinema-date">09.10.2024 <span>∞</span></div>
+      <div class="counter-label">BİRLİKTE GEÇİRDİĞİMİZ ZAMAN</div>
+      <div id="counter" class="counter">Hesaplanıyor…</div>
+      <button id="openJournal" class="cinema-btn">Anılarımıza geç <span>→</span></button>
+    </div>
+  </section>
+
+  <main id="journal" class="screen">
+    <div class="journal-vignette"></div>
+    <header class="journal-header">
+      <div class="header-brand"><span class="camera-icon">⌾</span><div><div class="script-title">İlk Anılar</div><small>Seninle her an, özel...</small></div></div>
+      <div class="header-page"><button id="prev">‹</button><span><b id="pageNum">1</b> / 25</span><button id="next">›</button></div>
+    </header>
+    <section class="journal-body">
+      <aside class="left-note">
+        <div class="vertical-line"></div>
+        <div id="leftText"></div>
+        <div class="little-heart">♡</div>
+      </aside>
+      <section class="memory-center">
+        <div class="photo-wrap" id="photoWrap">
+          <div class="tape"></div>
+          <img id="mainPhoto" src="" alt="Anımız">
+          <div id="photoPlaceholder" class="photo-placeholder">
+            <span>♡</span>
+            <strong>Bu sayfanın fotoğrafını sen ekle</strong>
+            <small>Numaralı medya otomatik olarak bu anıya bağlanır.</small>
+          </div>
+          <div class="photo-caption"><span id="photoDate">12.11.2024</span><span>♡</span></div>
+          <div id="videoWrap" class="video-wrap" hidden>
+            <video id="mainVideo" controls playsinline preload="metadata"></video>
+            <button id="deleteVideo" class="media-delete-btn video-delete-overlay" type="button" title="Bu videoyu sil">×</button>
+          </div>
+        </div>
+        <div class="click-hint" id="clickHint">↳ Fotoğrafa tıklayınca sürpriz bir not belirir...</div>
+        <div class="photo-actions"><label class="photo-add-btn">＋ Fotoğraf Ekle<input id="photoInput" type="file" accept="image/*" multiple hidden></label><label class="photo-add-btn video-add-btn">＋ Video Ekle<input id="videoInput" type="file" accept="video/mp4,video/webm,video/quicktime" multiple hidden></label><button id="clearPhotos" class="photo-clear-btn" type="button">Medyaları Temizle</button><button id="deleteVideo2" class="photo-clear-btn" type="button">🗑 Videoyu Sil</button><button id="editPage" class="photo-edit-btn" type="button">✎ Sayfayı Düzenle</button></div>
+      </section>
+      <aside class="right-note">
+        <div class="bubble" id="rightText"></div>
+        <div class="arrow-doodle">↙</div>
+      </aside>
+      <aside class="thumb-rail">
+        <button id="thumbUp">⌃</button>
+        <div id="thumbs"></div>
+        <button id="thumbDown">⌄</button>
+      </aside>
+    </section>
+    <footer class="journal-footer">
+      <div class="footer-line"></div>
+      <div class="footer-hint">⌁ Bir sonraki sayfa, birlikte yazdığımız başka bir anı saklıyor.</div>
+      <button id="index">☰</button>
+    </footer>
+
+
+    <div id="editModal" class="edit-modal" aria-hidden="true">
+      <div class="edit-card">
+        <button id="closeEdit" class="edit-close" type="button">×</button>
+        <div class="edit-kicker">SAYFAYI DÜZENLE</div>
+        <h2>Bu anıyı <em>sen yaz</em></h2>
+        <p class="edit-help">Buradaki değişiklikler sadece seçtiğin sayfaya kaydedilir.</p>
+        <label>Başlık<input id="editTitle" type="text" maxlength="80"></label>
+        <label>Tarih<input id="editDate" type="text" maxlength="40" placeholder="12.11.2024"></label>
+        <label>Sol taraftaki yazı<textarea id="editLeft" rows="6"></textarea></label>
+        <label>Fotoğrafa tıklayınca açılacak gizli not<textarea id="editSecret" rows="5"></textarea></label>
+        <div class="edit-actions"><button id="cancelEdit" type="button">Vazgeç</button><button id="saveEdit" type="button">♥ Kaydet</button></div>
+      </div>
+    </div>
+    <div id="secretNote" class="secret-note"><button id="closeSecret">×</button><div class="secret-paper"><div class="secret-heart">♡</div><p id="secretText"></p><span>— ∞</span></div></div>
+    <div id="indexPanel" class="index-panel"><div class="index-card"><button id="closeIndex">×</button><div class="index-kicker">HİKÂYEMİZİN HARİTASI</div><h2>25 sayfa.<br><em>Tek bir hikâye.</em></h2><div id="indexGrid"></div></div></div>
+  </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
